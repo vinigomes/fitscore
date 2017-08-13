@@ -7,7 +7,9 @@ def index():
 
 @app.route('/fitscore/<cargo>', methods=['GET'])
 def get_fitscore(cargo):
-    if (cargo is None) | (cargo == '') | (area is None) | (area == '') | (segmento is None) | (segmento == ''):
+    print(cargo)
+    if (cargo is None) | (cargo == '') :
+            #| (area is None) | (area == '') | (segmento is None) | (segmento == ''):
         abort(404)
     return str(cargo)
 
