@@ -5,8 +5,8 @@ app = Flask(__name__)
 def index():
     return "Intellead Fitscore"
 
-@app.route('/fitscore/<cargo>, <area>, <segmento>', methods=['GET'])
-def get_fitscore(cargo, area, segmento):
+@app.route('/fitscore/<cargo>', methods=['GET'])
+def get_fitscore(cargo):
     if (cargo is None) | (cargo == '') | (area is None) | (area == '') | (segmento is None) | (segmento == ''):
         abort(404)
     return str(cargo)
