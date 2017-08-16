@@ -10,10 +10,16 @@ def index():
     return "Intellead Fitscore"
 
 
-@app.route('/fitscore/<cargo>,<area>,<segmento>', methods=['GET'])
-def get_fitscore(cargo, area, segmento):
+@app.route('/fitscore', methods=['POST'])
+def get_fitscore():
+    data = request.get_json()
+    if data is None:
+        abort(400)
+    cargo = data['cargo']
+    area = data['area']
+    segmento = data['segmento']
     if (cargo is None) | (cargo == '') | (area is None) | (area == '') | (segmento is None) | (segmento == ''):
-        abort(404)
+        abort(400)
 
     peso_cargo = 0.46
     peso_area = 0.11
