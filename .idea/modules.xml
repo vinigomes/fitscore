@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Servicos.iml" filepath="$PROJECT_DIR$/.idea/Servicos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/intellead-fitscore.iml" filepath="$PROJECT_DIR$/.idea/intellead-fitscore.iml" />
     </modules>
   </component>
 </project>

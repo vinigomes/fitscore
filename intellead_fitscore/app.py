@@ -1,17 +1,19 @@
 from flask import Flask, abort, request
+import service
+
+
 app = Flask(__name__)
+
 
 @app.route('/')
 def index():
     return "Intellead Fitscore"
 
-@app.route('/fitscore/<cargo>', methods=['GET'])
-def get_fitscore(cargo):
-    print(cargo)
-    if (cargo is None) | (cargo == '') :
-            #| (area is None) | (area == '') | (segmento is None) | (segmento == ''):
+
+@app.route('/fitscore/<cargo>,<area>,<segmento>', methods=['GET'])
+def get_fitscore(cargo, area, segmento):
+    if (cargo is None) | (cargo == '') | (area is None) | (area == '') | (segmento is None) | (segmento == ''):
         abort(404)
-    return str(cargo)
 
     peso_cargo = 0.46
     peso_area = 0.11
@@ -21,17 +23,6 @@ def get_fitscore(cargo):
     fitscore_b = 5
     fitscore_c = 2.5
     fitscore_d = 0
-
-    #Cargos
-    cargo_sociopro_prietario = 8
-    cargo_diretor = 8
-    cargo_gestor_de_area = 7
-    cargo_analista = 1
-    cargo_assistente = 0
-    cargo_estagiario = 0
-    cargo_consultor = 0
-    cargo_autonomo = 0
-    cargo_outros = 0
 
     #Area
     area_engenharia = 10
@@ -62,26 +53,7 @@ def get_fitscore(cargo):
     info_area = area
     info_segmento = segmento
 
-    if(info_cargo == "Sócio/Proprietário"):
-        pontos_cargo = cargo_sociopro_prietario
-    elif(info_cargo == "Diretor"):
-        pontos_cargo = cargo_diretor
-    elif(info_cargo == "Gestor de Área"):
-        pontos_cargo = cargo_gestor_de_area
-    elif(info_cargo == "Analista"):
-        pontos_cargo = cargo_analista
-    elif(info_cargo == "Analista"):
-        pontos_cargo = cargo_analista
-    elif(info_cargo == "Assistente"):
-        pontos_cargo = cargo_assistente
-    elif (info_cargo == "Estagiário"):
-        pontos_cargo = cargo_estagiario
-    elif (info_cargo == "Consultor"):
-        pontos_cargo = cargo_consultor
-    elif (info_cargo == "Autônomo"):
-        pontos_cargo = cargo_autonomo
-    elif (info_cargo == "Outros"):
-        pontos_cargo = cargo_outros
+    pontos_cargo = service.get_pontos_cargo(info_cargo)
 
     if(info_area == "Engenharia"):
         pontos_area = area_engenharia
@@ -128,16 +100,19 @@ def get_fitscore(cargo):
     fitscore_cargo = pontos_cargo * peso_cargo
     fitscore_area = pontos_area * peso_area
     fitscore_segmento = pontos_segmento * peso_segmento
-
     valor_fitscore = fitscore_cargo + fitscore_area + fitscore_segmento
 
+    fitscore = None
     if(valor_fitscore >= fitscore_a):
-        fitscore = "Lead Scoring A"
+        fitscore = "a"
     elif(valor_fitscore >= fitscore_b):
-        fitscore = "Lead Scoring B"
+        fitscore = "b"
     elif(valor_fitscore >= fitscore_c):
-        fitscore = "Lead Scoring C"
+        fitscore = "c"
     elif(valor_fitscore >= fitscore_d):
-        fitscore = "Lead Scoring D"
+        fitscore = "d"
+    return fitscore
 
-    print(fitscore)
+
+if __name__ == '__main__':
+    app.run(debug=True)
