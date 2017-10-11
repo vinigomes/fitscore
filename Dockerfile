@@ -1,6 +1,6 @@
 FROM python:3.6.2
 
-WORKDIR /usr/src/intellead-fitscore/app
+WORKDIR /usr/src/intellead/intellead-fitscore/app
 
 COPY requirements.txt ./
 
