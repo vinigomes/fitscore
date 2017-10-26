@@ -1,4 +1,4 @@
-FROM python:3.6.2
+FROM python:3.6.3-alpine3.6
 
 WORKDIR /usr/src/intellead/intellead-fitscore/app
 
